@@ -1,0 +1,17 @@
+﻿@model BudgetMaster.Models.User
+@{ ViewBag.Title = "User Profile"; }
+
+<div class="col-md-6 card p-4 shadow-sm">
+    <h4>User Profile</h4>
+    <hr />
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Member Since:</strong> @Model.CreatedAt.ToString("dd MMM yyyy")</p>
+    @using (Html.BeginForm("UpdateProfile", "Account", FormMethod.Post))
+    {
+        <div class="mb-3">
+            <label>Full Name</label>
+            <input type="text" name="fullName" value="@Model.FullName" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    }
+</div>

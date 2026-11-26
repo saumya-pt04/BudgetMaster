@@ -1,0 +1,54 @@
+﻿@model BudgetMaster.Models.DashboardViewModel
+@{ ViewBag.Title = "Dashboard"; }
+
+<h3 class="mb-4">Welcome, @Model.UserName</h3>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card border-success p-3 shadow-sm">
+            <small class="text-muted">Total Income</small>
+            <h4 class="text-success">₹@Model.TotalIncome.ToString("N2")</h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-danger p-3 shadow-sm">
+            <small class="text-muted">Total Expenses</small>
+            <h4 class="text-danger">₹@Model.TotalExpenses.ToString("N2")</h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-primary p-3 shadow-sm">
+            <small class="text-muted">Net Savings</small>
+            <h4 class="text-primary">₹@Model.NetSavings.ToString("N2")</h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-warning p-3 shadow-sm">
+            <small class="text-muted">Remaining Monthly Budget</small>
+            <h4 class="@(Model.RemainingBudget < 0 ? "text-danger" : "text-dark")">₹@Model.RemainingBudget.ToString("N2")</h4>
+        </div>
+    </div>
+</div>
+
+<div class="card p-4 shadow-sm">
+    <div class="d-flex justify-content-between mb-3">
+        <h5>Recent Expenses</h5>
+        <a href="@Url.Action("Transactions")" class="btn btn-sm btn-outline-primary">View All</a>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr><th>Title</th><th>Category</th><th>Date</th><th>Amount</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.RecentExpenses)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.ExpenseDate.ToString("dd-MM-yyyy")</td>
+                    <td class="text-danger fw-bold">₹@item.Amount.ToString("N2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
